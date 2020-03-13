@@ -13,11 +13,48 @@ var initialsEl = document.getElementById("initials");
 var feedbackEl = document.getElementById("feedback");
 
 //TODO add list of questions
-
+var myQuestions = [{
+		question: "What is blue?",
+		answers: {
+			a: '3',
+			b: '5',
+      c: '115',
+      d: '43',
+		},
+		correctAnswer: 'b'
+	},{
+		question: "What is blue?",
+		answers: {
+			a: '3',
+			b: '5',
+      c: '115',
+      d: '43',
+		},
+		correctAnswer: 'b'
+  },{
+		question: "What is blue?",
+		answers: {
+			a: '3',
+			b: '5',
+      c: '115',
+      d: '43',
+		},
+		correctAnswer: 'b'
+  },{
+		question: "What is blue?",
+		answers: {
+			a: '3',
+			b: '5',
+      c: '115',
+      d: '43',
+		},
+		correctAnswer: 'b'
+  },
+];
 
 function startQuiz() {
   // hide start screen
-
+  
   // un-hide questions section
 
   // start timer
