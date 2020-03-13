@@ -10,11 +10,132 @@
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="script.js"></script>
+<script src="assets/script.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body>
-The content of the document......
+    <a class="highscore-link" href="highscores">Highscores</a>
+    <main>
+        <div class="intro">
+            <h1>Coding quiz challenge</h1>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by ten seconds!</p>
+            <button id="start-quiz">Start Quiz</button>
+        </div>
+        <section class="questions">
+            <div id="qOne" class="question">
+                <h2>Question Holder 1</h2>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" data-correct="true">
+                    Option 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">
+                    Option 2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">
+                    Option 3
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">
+                    Option 4
+                    </label>
+                </div>
+            </div>
+            <div id="qTwo" class="question">
+                <h2>Question Holder 2</h2>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" >
+                    Option 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">
+                    Option 2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" data-correct="true">
+                    Option 3
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">
+                    Option 4
+                    </label>
+                </div>
+            </div>
+            <div id="qThree" class="question">
+                <h2>Question Holder 3</h2>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" >
+                    Option 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" data-correct="true">
+                    Option 2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">
+                    Option 3
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">
+                    Option 4
+                    </label>
+                </div>
+            </div>
+            <div id="qFour" class="question">
+                <h2>Question Holder 4</h2>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" >
+                    Option 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">
+                    Option 2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" >
+                    Option 3
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" data-correct="true">
+                    Option 4
+                    </label>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="timer">
+        <p>Time:<span></span></p>
+    </div>
 </body>
 
 </html>
