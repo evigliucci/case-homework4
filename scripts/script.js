@@ -3,42 +3,21 @@ $(document).ready(function(){
   //TODO add list of questions
   var myQuestions = [{
     question: "What is blue?",
-    answers: {
-      a: '3',
-      b: '5',
-      c: '115',
-      d: '43',
-    },
+    choices: ['1','2','3','4'],
+    correctAnswer: '3'
+  },{
+    question: "What is blue?",
+    choices: ['1','2','3','4'],
     correctAnswer: 'b'
   },{
     question: "What is blue?",
-    answers: {
-      a: '3',
-      b: '5',
-      c: '115',
-      d: '43',
-    },
+    choices: ['1','2','3','4'],
     correctAnswer: 'b'
   },{
     question: "What is blue?",
-    answers: {
-      a: '3',
-      b: '5',
-      c: '115',
-      d: '43',
-    },
+    choices: ['1','2','3','4'],
     correctAnswer: 'b'
-  },{
-    question: "What is blue?",
-    answers: {
-      a: '3',
-      b: '5',
-      c: '115',
-      d: '43',
-    },
-    correctAnswer: 'b'
-  },
-  ];
+  }];
 
   // variables to keep track of quiz state
   var currentQuestionIndex = 0;
@@ -53,7 +32,7 @@ $(document).ready(function(){
   var startBtn = document.getElementById("start");
   var initialsEl = document.getElementById("initials");
   var feedbackEl = document.getElementById("feedback");
-
+  var title = document.getElementById("question-title");
 
   function startQuiz() {
     // hide start screen
@@ -73,23 +52,33 @@ $(document).ready(function(){
 
   function getQuestion() {
     // get current question object from array
+    currentquestion = myQuestions[currentQuestionIndex].question;
 
     // update title with current question
+    $(title).text(currentquestion);
 
     // clear out any old question choices
 
     // loop over choices
+    var choices = myQuestions[currentQuestionIndex].choices;
+    
 
+    for (var choice = 1 ; choice <= choices.length; choice++){
       // create new button for each choice
-
+      $(choicesEl).append("<button>" + choice + "</button>");
+      
+      
       // attach click event listener to each choice
-
+      $('button').on('click', function(){
+        questionClick();
+      });
+    }
 
       // display on the page
-
   }
 
   function questionClick() {
+    console.log('clicked');
     // check if user guessed wrong and penalize time if incorrect
     // display new time on page
 
@@ -106,15 +95,15 @@ $(document).ready(function(){
 
   function quizEnd() {
     // stop timer
-
+    time == 0;
 
     // show end screen
-
+    $('#end-screen').show();
 
     // show final score
 
     // hide questions section
-
+    $(questionsEl).hide();
   }
 
   function clockTick(time) {
