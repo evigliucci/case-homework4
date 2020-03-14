@@ -4,19 +4,19 @@ $(document).ready(function(){
   var myQuestions = [{
     question: "What is blue?",
     choices: ['1','2','3','4'],
-    correctAnswer: '3'
+    correctAnswer: 2
   },{
     question: "What is blue?",
     choices: ['1','2','3','4'],
-    correctAnswer: 'b'
+    correctAnswer: 3
   },{
     question: "What is blue?",
     choices: ['1','2','3','4'],
-    correctAnswer: 'b'
+    correctAnswer: 1
   },{
     question: "What is blue?",
     choices: ['1','2','3','4'],
-    correctAnswer: 'b'
+    correctAnswer: 4
   }];
 
   // variables to keep track of quiz state
@@ -61,30 +61,40 @@ $(document).ready(function(){
 
     // loop over choices
     var choices = myQuestions[currentQuestionIndex].choices;
-    
+    var answer = myQuestions[currentQuestionIndex].correctAnswer;
 
     for (var choice = 1 ; choice <= choices.length; choice++){
+      
       // create new button for each choice
-      $(choicesEl).append("<button>" + choice + "</button>");
-      
-      
-      // attach click event listener to each choice
-      $('button').on('click', function(){
-        questionClick();
-      });
+      if(choice == answer){
+         // if choices index matches correctanswer add class
+        $(choicesEl).append("<button class='true'>" + choice + "</button>");
+      }else{
+         // display on the page
+        $(choicesEl).append("<button>" + choice + "</button>");
+      }
     }
 
-      // display on the page
+    // attach click event listener to each choice
+    $('button').on('click', function(){
+      questionClick(this);
+    });
+     
   }
 
-  function questionClick() {
-    console.log('clicked');
-    // check if user guessed wrong and penalize time if incorrect
+  function questionClick(selection) {
+    //if correct show feedback
+    if($(selection).hasClass("true")){
+      console.log('true');
+    }else{
+      // check if user guessed wrong and penalize time if incorrect
+      console.log('false');
+      time = time - 10;
+    }
+
     // display new time on page
-
-
-    // else show correct feedback
-
+    //------------------------------------- NEED HELP HERE -------------------------------------//
+    clockTick(time);
 
     // move to next question
     currentQuestionIndex++;
