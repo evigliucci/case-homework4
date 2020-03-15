@@ -1,7 +1,8 @@
 $(document).ready(function(){
+  
   var myQuestions = [{
-    question: "JavaScript Code can be called by using",
-    choices: ['RMI','Triggering Event','Preprocessor','Function/Method'],
+    question: "JavaScript code can be called by using",
+    choices: ['RMI','Triggering Event','Preprocessor','Function / Method'],
     correctAnswer: 4
   },{
     question: "The snippet that has to be used to check if “a” is not equal to “null” is",
@@ -13,7 +14,8 @@ $(document).ready(function(){
       'Both a and b are equal in value, type and reference address',
       'Both a and b are equal in value',
       'Both a and b are equal in value and type',
-      'There is no such statement'],
+      'There is no such statement'
+    ],
     correctAnswer: 3
   },{
     question: "Which is not a Javascript Date Type",
@@ -24,7 +26,7 @@ $(document).ready(function(){
 
   var currentQuestionIndex = 0;
   var time = myQuestions.length * 25;
-  var timerId;//Unused?
+
   var questionsEl = document.getElementById("questions");
   var timerEl = document.getElementById("time");
   var choicesEl = document.getElementById("choices");
@@ -33,6 +35,8 @@ $(document).ready(function(){
   var initialsEl = document.getElementById("initials");
   var feedbackEl = document.getElementById("feedback");
   var title = document.getElementById("question-title");
+  var timerInterval;
+  var finalScore;
 
   function startQuiz() {
     $('#start-screen').hide();
@@ -60,7 +64,7 @@ $(document).ready(function(){
         $(choicesEl).append("<button>" + choices[i] + "</button>");
       }
     }
-    $('button').on('click', function(){
+    $('.choices button').on('click', function(){
       questionClick(this);
     });
   }
@@ -82,48 +86,50 @@ $(document).ready(function(){
   }
 
   function quizEnd() {
-    time == 0;
-    $('#end-screen').show();
-
-    // show final score
-
-    // hide questions section
+    finalScore = time+10;
     $(questionsEl).hide();
+    $('#end-screen').show();
+    $('#final-score').html(finalScore);
+    clearInterval(timerInterval);
   }
 
   function clockTick() {
-    var timerInterval = setInterval(function() {
-        time--;
-        timerEl.textContent = time;
+      timerInterval = setInterval(function() {
+      time--;
+      timerEl.textContent = time;
 
-         // check if user ran out of time
-        if(time <= 0) {
-            clearInterval(timerInterval);
-            quizEnd();
-        }
-
+      if(time <= 0) {
+          clearInterval(timerInterval);
+          quizEnd();
+      }
     }, 1000); 
   }
 
   function saveHighscore() {
-    // get value of input box
-  // var initials = ???
+    var initials = $(initialsEl).val();
 
-    // make sure value wasn't empty
-    //if (initials !== "") {
-      // get saved scores from localstorage, or if not any, set to empty array
+    if (initials !== "") {
+      if (localStorage.getItem("savedScores") !== null) {
+        var savedScores = localStorage.getItem("savedScores");
+      }else{
+        var savedScores = [];
+      }
 
+      var newScore = {
+        'initials': initials,
+        'score': finalScore
+      };
 
-      // format new score object for current user
-
-      // save to localstorage
-
-
+      localStorage.setItem("savedScores", JSON.stringify(newScore));
       // redirect to next page
-
-    //}
+      window.location.href = 'highscores.html';
+    }
   }
   // user clicks button to submit initials
+  $(submitBtn).on('click', function(){
+    saveHighscore();
+  });  
+  
 
   // user clicks button to start quiz
   $(startBtn).on('click', function(){
