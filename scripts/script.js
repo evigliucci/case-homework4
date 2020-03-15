@@ -23,7 +23,6 @@ $(document).ready(function(){
     correctAnswer: 1
   }];
 
-
   var currentQuestionIndex = 0;
   var time = myQuestions.length * 25;
 
@@ -37,6 +36,8 @@ $(document).ready(function(){
   var title = document.getElementById("question-title");
   var timerInterval;
   var finalScore;
+  var highScore = JSON.parse(localStorage.getItem("highScores")) || [];
+
 
   function startQuiz() {
     $('#start-screen').hide();
@@ -107,29 +108,27 @@ $(document).ready(function(){
 
   function saveHighscore() {
     var initials = $(initialsEl).val();
-
+    
     if (initials !== "") {
-      if (localStorage.getItem("savedScores") !== null) {
-        var savedScores = localStorage.getItem("savedScores");
-      }else{
-        var savedScores = [];
-      }
-
-      var newScore = {
+      var score = {
         'initials': initials,
         'score': finalScore
       };
 
-      localStorage.setItem("savedScores", JSON.stringify(newScore));
-      // redirect to next page
+      highScore.push(score);
+      highScore.sort((a,b) => {
+        return b.score - a.score;
+      });
+      localStorage.setItem('highScores', JSON.stringify(highScore));
+
       window.location.href = 'highscores.html';
     }
   }
   // user clicks button to submit initials
-  $(submitBtn).on('click', function(){
+  $(submitBtn).on('click', function(e){
+    e.preventDefault();
     saveHighscore();
   });  
-  
 
   // user clicks button to start quiz
   $(startBtn).on('click', function(){

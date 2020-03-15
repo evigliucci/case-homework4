@@ -1,21 +1,28 @@
-$(document).ready(function(){
-  var scores = localStorage.getItem("savedScores")
+$(document).ready(function () {
+  var highScore = JSON.parse(localStorage.getItem('highScores')) || [];
+  var backBtn = $('#back');
+  var clearBtn = $('#clear');
+
   printHighscores()
-  
+
   function printHighscores() {
-    // either get scores from localstorage or set to empty array
-    if (scores !== null) {
-      console.log(scores);
-    }else{
-      console.log('else');
+    if (highScore !== null) {
+      for (var i = 0; i < highScore.length; i++) {
+        $('#scoreboard').append('<li>' + highScore[i].initials + ' - ' + highScore[i].score + '</li>');
+      }
     }
-
-    // sort highscores by score property in descending order
-
   }
 
   function clearHighscores() {
-    window.localStorage.removeItem("highscores");
+    window.localStorage.removeItem('highscores');
     window.location.reload();
   }
+
+  $(backBtn).on('click', function () {
+    window.location.href = 'index.html';
+  });
+  $(clearBtn).on('click', function () {
+    localStorage.removeItem('highScores');
+    $('#scoreboard').empty();
+  });
 });
