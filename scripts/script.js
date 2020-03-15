@@ -1,30 +1,30 @@
 $(document).ready(function(){
-
-  //TODO add list of questions
   var myQuestions = [{
-    question: "What is blue?",
-    choices: ['1','2','3','4'],
+    question: "JavaScript Code can be called by using",
+    choices: ['RMI','Triggering Event','Preprocessor','Function/Method'],
+    correctAnswer: 4
+  },{
+    question: "The snippet that has to be used to check if “a” is not equal to “null” is",
+    choices: ['if(a!=null)','if(a!==null)','if (!a)','if(a!null)'],
     correctAnswer: 2
   },{
-    question: "What is blue?",
-    choices: ['1','2','3','4'],
+    question: "The statement a===b refers to",
+    choices: [
+      'Both a and b are equal in value, type and reference address',
+      'Both a and b are equal in value',
+      'Both a and b are equal in value and type',
+      'There is no such statement'],
     correctAnswer: 3
   },{
-    question: "What is blue?",
-    choices: ['1','2','3','4'],
+    question: "Which is not a Javascript Date Type",
+    choices: ['Method','Number','String','Object'],
     correctAnswer: 1
-  },{
-    question: "What is blue?",
-    choices: ['1','2','3','4'],
-    correctAnswer: 4
   }];
 
-  // variables to keep track of quiz state
-  var currentQuestionIndex = 0;
-  var time = myQuestions.length * 15;
-  var timerId;
 
-  // variables to reference DOM elements
+  var currentQuestionIndex = 0;
+  var time = myQuestions.length * 25;
+  var timerId;//Unused?
   var questionsEl = document.getElementById("questions");
   var timerEl = document.getElementById("time");
   var choicesEl = document.getElementById("choices");
@@ -35,79 +35,54 @@ $(document).ready(function(){
   var title = document.getElementById("question-title");
 
   function startQuiz() {
-    // hide start screen
     $('#start-screen').hide();
-
-    // un-hide questions section
     $(questionsEl).show();
-
-    // start timer
     clockTick(time);
-
-    // show starting time
     $(timerEl).text(time);
-
     getQuestion();
   }
 
   function getQuestion() {
-    // get current question object from array
-    currentquestion = myQuestions[currentQuestionIndex].question;
+    if ( $(choicesEl).children().length > 0 ) {
+      $(choicesEl).empty();
+    }
 
-    // update title with current question
+    currentquestion = myQuestions[currentQuestionIndex].question;
     $(title).text(currentquestion);
 
-    // clear out any old question choices
-
-    // loop over choices
     var choices = myQuestions[currentQuestionIndex].choices;
     var answer = myQuestions[currentQuestionIndex].correctAnswer;
 
-    for (var choice = 1 ; choice <= choices.length; choice++){
-      
-      // create new button for each choice
-      if(choice == answer){
-         // if choices index matches correctanswer add class
-        $(choicesEl).append("<button class='true'>" + choice + "</button>");
+    for (var i = 0 ; i < choices.length; i++){
+      if(choices[i] == answer){
+        $(choicesEl).append("<button class='true'>" + choices[i] + "</button>");
       }else{
-         // display on the page
-        $(choicesEl).append("<button>" + choice + "</button>");
+        $(choicesEl).append("<button>" + choices[i] + "</button>");
       }
     }
-
-    // attach click event listener to each choice
     $('button').on('click', function(){
       questionClick(this);
     });
-     
   }
 
   function questionClick(selection) {
-    //if correct show feedback
     if($(selection).hasClass("true")){
-      console.log('true');
+      $("#message").html('Correct! Great Job.')
     }else{
-      // check if user guessed wrong and penalize time if incorrect
-      console.log('false');
+      $("#message").html('<p>Sorry, wrong answer.</p>')
       time = time - 10;
     }
 
-    // display new time on page
-    //------------------------------------- NEED HELP HERE -------------------------------------//
-    clockTick(time);
-
-    // move to next question
-    currentQuestionIndex++;
-
-    // check if we've run out of questions
-
+    if (currentQuestionIndex == myQuestions.length -1){
+      quizEnd();
+    }else{
+      currentQuestionIndex++;
+      getQuestion();
+    }
   }
 
   function quizEnd() {
-    // stop timer
     time == 0;
-
-    // show end screen
     $('#end-screen').show();
 
     // show final score
@@ -116,8 +91,7 @@ $(document).ready(function(){
     $(questionsEl).hide();
   }
 
-  function clockTick(time) {
-    // update time
+  function clockTick() {
     var timerInterval = setInterval(function() {
         time--;
         timerEl.textContent = time;
