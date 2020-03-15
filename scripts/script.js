@@ -1,14 +1,14 @@
-$(document).ready(function(){
-  
+$(document).ready(function () {
+
   var myQuestions = [{
     question: "JavaScript code can be called by using",
-    choices: ['RMI','Triggering Event','Preprocessor','Function / Method'],
+    choices: ['RMI', 'Triggering Event', 'Preprocessor', 'Function / Method'],
     correctAnswer: 4
-  },{
+  }, {
     question: "The snippet that has to be used to check if “a” is not equal to “null” is",
-    choices: ['if(a!=null)','if(a!==null)','if (!a)','if(a!null)'],
+    choices: ['if(a!=null)', 'if(a!==null)', 'if (!a)', 'if(a!null)'],
     correctAnswer: 2
-  },{
+  }, {
     question: "The statement a===b refers to",
     choices: [
       'Both a and b are equal in value, type and reference address',
@@ -17,9 +17,9 @@ $(document).ready(function(){
       'There is no such statement'
     ],
     correctAnswer: 3
-  },{
+  }, {
     question: "Which is not a Javascript Date Type",
-    choices: ['Method','Number','String','Object'],
+    choices: ['Method', 'Number', 'String', 'Object'],
     correctAnswer: 1
   }];
 
@@ -48,7 +48,7 @@ $(document).ready(function(){
   }
 
   function getQuestion() {
-    if ( $(choicesEl).children().length > 0 ) {
+    if ($(choicesEl).children().length > 0) {
       $(choicesEl).empty();
     }
 
@@ -58,36 +58,40 @@ $(document).ready(function(){
     var choices = myQuestions[currentQuestionIndex].choices;
     var answer = myQuestions[currentQuestionIndex].correctAnswer;
 
-    for (var i = 0 ; i < choices.length; i++){
-      if(choices[i] == answer){
+    for (var i = 0; i < choices.length; i++) {
+      if (choices[i] == answer) {
         $(choicesEl).append("<button class='true'>" + choices[i] + "</button>");
-      }else{
+      } else {
         $(choicesEl).append("<button>" + choices[i] + "</button>");
       }
     }
-    $('.choices button').on('click', function(){
+    $('.choices button').on('click', function () {
       questionClick(this);
     });
   }
 
   function questionClick(selection) {
-    if($(selection).hasClass("true")){
+    if ($(selection).hasClass("true")) {
       $("#message").html('Correct! Great Job.')
-    }else{
+      lastQuestion();
+    } else {
       $("#message").html('<p>Sorry, wrong answer.</p>')
+      lastQuestion();
       time = time - 10;
     }
+  }
 
-    if (currentQuestionIndex == myQuestions.length -1){
+  function lastQuestion(){
+    if (currentQuestionIndex == myQuestions.length - 1) {
       quizEnd();
-    }else{
+    } else {
       currentQuestionIndex++;
       getQuestion();
     }
   }
 
   function quizEnd() {
-    finalScore = time+10;
+    finalScore = time;
     $(questionsEl).hide();
     $('#end-screen').show();
     $('#final-score').html(finalScore);
@@ -95,20 +99,20 @@ $(document).ready(function(){
   }
 
   function clockTick() {
-      timerInterval = setInterval(function() {
+    timerInterval = setInterval(function () {
       time--;
       timerEl.textContent = time;
 
-      if(time <= 0) {
-          clearInterval(timerInterval);
-          quizEnd();
+      if (time <= 0) {
+        clearInterval(timerInterval);
+        quizEnd();
       }
-    }, 1000); 
+    }, 1000);
   }
 
   function saveHighscore() {
     var initials = $(initialsEl).val();
-    
+
     if (initials !== "") {
       var score = {
         'initials': initials,
@@ -116,7 +120,7 @@ $(document).ready(function(){
       };
 
       highScore.push(score);
-      highScore.sort((a,b) => {
+      highScore.sort((a, b) => {
         return b.score - a.score;
       });
       localStorage.setItem('highScores', JSON.stringify(highScore));
@@ -124,14 +128,13 @@ $(document).ready(function(){
       window.location.href = 'highscores.html';
     }
   }
-  // user clicks button to submit initials
-  $(submitBtn).on('click', function(e){
+
+  $(submitBtn).on('click', function (e) {
     e.preventDefault();
     saveHighscore();
-  });  
+  });
 
-  // user clicks button to start quiz
-  $(startBtn).on('click', function(){
+  $(startBtn).on('click', function () {
     startQuiz();
-  });  
+  });
 })
